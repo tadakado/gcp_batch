@@ -9,7 +9,7 @@ echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /e
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install -y wget tmux gcsfuse git
+sudo apt-get install -y wget tmux gcsfuse git nfs-kernel-server
 
 # .tmux.conf
 curl -L https://gist.github.com/tadakado/853d363dbd82eafbd69019504505e288/raw/d213d66bf81c6330dfa0549b263f0f9b723db3ca/.tmux.conf -O
