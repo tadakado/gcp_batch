@@ -301,6 +301,22 @@ mkdir /mnt/sdb/Work
 ln -s /mnt/sdb/Work .
 ```
 
+## NFSによるフォルダの共有
+
+他のマシンにフォルダを共有する(少し重いデータ解析を実施する場合などに利用)。
+まず、マスタコントローラの設定、
+
+```
+sudo echo "/mnt/sdb/Work 10.128.0.0/9(rw,sync,fsid=0,crossmnt,no_subtree_check)" >> /etc/exports
+sudo exportfs -ra
+```
+
+共有フォルダにアクセスしたいマシンから、以下を実行、
+
+```
+sudo mount -v -t nfs4 10.138.0.21:/ /mnt/Work
+```
+
 ----
 # バッチによる解析の実行
 ----
