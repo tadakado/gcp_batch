@@ -107,12 +107,17 @@ gcp/master/monitor.sh -r $IMAGE $IMAGE_PROJECT $GS_URI $ANALYSIS_NAME
 ## 実際のプロジェクトでの利用
 
 ```
-git clone ..... gcp_batch_original
+git clone https://github.com/tadakado/gcp_batch.git gcp_batch_git
 mkdir myproject
 cd myproject
 mkdir script data
-ln -s ../gcp_batch_original/gcp .
-#上記に従い、queue, batch, monitorを実行
+mkdir -p gcp/{master,worker}
+(cd gcp/master; for f in ../../../gcp_batch_git/gcp/master/* ; do ln -s $f ; done)
+(cd gcp/worker; for f in ../../../gcp_batch_git/gcp/worker/* ; do ln -s $f ; done)
+rm gcp/master/config.sh
+cp ../gcp_batch_git/gcp/master/config.sh gcp/master/
+cp ../gcp_batch_git/examples/script/analysis.sh script/
+#解析プログラムを用意して、上記に従い、queue, batch, monitorを実行
 ```
 
 ## 異常終了により失敗した解析の再解析
