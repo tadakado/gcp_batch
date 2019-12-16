@@ -301,6 +301,36 @@ mkdir /mnt/sdb/Work
 ln -s /mnt/sdb/Work .
 ```
 
+## NFSによるフォルダの共有
+
+他のマシンにフォルダを共有する(少し重いデータ解析を実施する場合などに利用)。
+まず、マスタコントローラの設定、
+
+```
+sudo echo "/mnt/sdb/Work 10.128.0.0/9(rw,sync,fsid=0,crossmnt,no_subtree_check)" >> /etc/exports
+sudo exportfs -ra
+```
+
+共有フォルダにアクセスしたいマシンから、以下を実行、
+
+```
+sudo mount -v -t nfs4 10.138.0.21:/ /mnt/Work
+```
+
+## Cloud Storageのマウント
+
+マウントして直接データを読みに行くことも可能。特に一度しかデータを読まない場合などに向いている。
+
+```
+gcsfuse --implicit-dirs $BUCKET_NAME $HOME/$BUCKET_NAME
+```
+
+アンマウントは`fusermount`を用いる。
+
+```
+fusermount -u $HOME/$BUCKET_NAME
+```
+
 ----
 # バッチによる解析の実行
 ----
