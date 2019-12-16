@@ -317,6 +317,20 @@ sudo exportfs -ra
 sudo mount -v -t nfs4 10.138.0.21:/ /mnt/Work
 ```
 
+## Cloud Storageのマウント
+
+マウントして直接データを読みに行くことも可能。特に一度しかデータを読まない場合などに向いている。
+
+```
+gcsfuse --implicit-dirs $BUCKET_NAME $HOME/$BUCKET_NAME
+```
+
+アンマウントは`fusermount`を用いる。
+
+```
+fusermount -u $HOME/$BUCKET_NAME
+```
+
 ----
 # バッチによる解析の実行
 ----
